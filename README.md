@@ -55,7 +55,7 @@ Libraries for testing go in the **/lib** directory.
 
 ## History
 - 0.9.0
-  - Add possibility to update tag, two new event are defined "beforeItemUpdate" and "itemUpdated".
+  - Add possibility to update tag, two new events are defined "beforeItemUpdate" and "itemUpdated".
 - 0.8.0
   - [Add possibility skip "change" event after "add", "remove", "removeAll"](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/pull/429)
   - [Please add version to header of non-minified version.](https://github.com/bootstrap-tagsinput/bootstrap-tagsinput/issues/438)
