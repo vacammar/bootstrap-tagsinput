@@ -345,31 +345,25 @@
 
       // typeahead.js
       if (self.options.typeaheadjs) {
-        // Determine if main configurations were passed or simply a dataset
-        var typeaheadjs = self.options.typeaheadjs;
-        if (!$.isArray(typeaheadjs)) {
-            typeaheadjs = [null, typeaheadjs];
-        }
+          var typeaheadConfig = null;
+          var typeaheadDatasets = {};
 
-        $.fn.typeahead.apply(self.$input, typeaheadjs).on('typeahead:selected', $.proxy(function (obj, datum, name) {
-          var index = 0;
-          typeaheadjs.some(function(dataset, _index) {
-            if (dataset.name === name) {
-              index = _index;
-              return true;
-            }
-            return false;
-          });
-
-          // @TODO Dep: https://github.com/corejavascript/typeahead.js/issues/89
-          if (typeaheadjs[index].valueKey) {
-            self.add(datum[typeaheadjs[index].valueKey]);
+          // Determine if main configurations were passed or simply a dataset
+          var typeaheadjs = self.options.typeaheadjs;
+          if ($.isArray(typeaheadjs)) {
+            typeaheadConfig = typeaheadjs[0];
+            typeaheadDatasets = typeaheadjs[1];
           } else {
-            self.add(datum);
+            typeaheadDatasets = typeaheadjs;
           }
 
-          self.$input.typeahead('val', '');
-        }, self));
+          self.$input.typeahead(typeaheadConfig, typeaheadDatasets).on('typeahead:selected', $.proxy(function (obj, datum) {
+            if (typeaheadDatasets.valueKey)
+              self.add(datum[typeaheadDatasets.valueKey]);
+            else
+              self.add(datum);
+            self.$input.typeahead('val', '');
+          }, self));
       }
 
       self.$container.on('click', $.proxy(function(event) {
@@ -496,6 +490,26 @@
         }
         self.remove($(event.target).closest('.tag').data('item'));
       }, self));
+
+      // Update tag (when click on tag)
+      self.$container.on('click', $.proxy(function(event) {
+        var _target = $(event.target);
+        if (_target.attr('data-role') == 'remove') {
+            // skip click on remove tag
+            return;
+        }
+        // raise beforeItemUpdateEvent arg
+        var beforeItemUpdateEvent = $.Event('beforeItemUpdate', { item: _target.text(), cancel: false});
+        self.$element.trigger(beforeItemUpdateEvent);
+        if (beforeItemUpdateEvent.cancel) {
+          return;
+        }
+        var _value = _target.text();
+        self.remove(_value);
+        self.input().val(_value);
+        // trigger itemUpdated event
+        self.$element.trigger($.Event('itemUpdated', { item: _target.text() }));
+      }));
 
       // Only add existing value as tags when using strings as tags
       if (self.options.itemValue === defaultOptions.itemValue) {
