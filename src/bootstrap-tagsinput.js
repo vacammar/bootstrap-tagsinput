@@ -494,7 +494,7 @@
       // Update tag (when click on tag)
       self.$container.on('click', $.proxy(function(event) {
         var _target = $(event.target);
-        if (_target.attr('data-role') == 'remove') {
+        if (_target.attr('data-role') == 'remove' || !_target.hasClass('tag')) {
             // skip click on remove tag
             return;
         }
