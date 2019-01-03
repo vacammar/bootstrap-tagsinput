@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-tagsinput",
   "title": "Bootstrap Tags Input",
-  "version": "0.9.1",
+  "version": "0.9.2",
   "description": "jQuery plugin providing a Twitter Bootstrap user interface for managing tags.",
   "scripts": {
     "test": "karma start --single-run --no-auto-watch"
@@ -14,7 +14,8 @@
   "author": "Tim Schlechter",
   "contributors": [
     {
-      "name": "Luckner Jr Jean-Baptiste"
+      "name": "Luckner Jr Jean-Baptiste",
+      "name": "Valerio Cammarota"
     }
   ],
   "license": "MIT",

@@ -54,6 +54,10 @@ Current Library Versions:
 Libraries for testing go in the **/lib** directory.
 
 ## History
+- 0.9.2
+  Fixed css style of tag-input.
+- 0.9.1
+  - General fix.
 - 0.9.0
   - Add possibility to update tag, two new events are defined "beforeItemUpdate" and "itemUpdated".
 - 0.8.0
